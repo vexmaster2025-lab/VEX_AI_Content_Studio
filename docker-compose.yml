@@ -1,0 +1,34 @@
+version: '3.9'
+services:
+  db:
+    image: postgres:15
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: vex
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: vex
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    ports:
+      - '5432:5432'
+
+  redis:
+    image: redis:7
+    restart: unless-stopped
+    ports:
+      - '6379:6379'
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    env_file:
+      - ./backend/.env.example
+    ports:
+      - '8000:8000'
+    depends_on:
+      - db
+      - redis
+
+volumes:
+  db_data:
