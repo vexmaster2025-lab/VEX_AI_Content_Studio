@@ -5,6 +5,7 @@ passlib[bcrypt]
 python-dotenv
 pydantic
 pydantic-settings
+email-validator
 sqlalchemy[asyncio]
 asyncpg
 redis
