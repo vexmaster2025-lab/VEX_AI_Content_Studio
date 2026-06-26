@@ -33,6 +33,14 @@ app.add_middleware(
 )
 
 
+@app.get('/')
+async def root():
+    return {
+        'status': 'ok',
+        'message': 'VEX AI Content Studio API is running',
+    }
+
+
 @app.exception_handler(HTTPException)
 async def http_exception_handler(request: Request, exc: HTTPException):
     return JSONResponse(status_code=exc.status_code, content={'detail': exc.detail})
