@@ -5,8 +5,8 @@ from pydantic_settings import BaseSettings
 
 
 class Settings(BaseSettings):
-    database_url: AnyUrl
-    redis_url: AnyUrl
+    database_url: str
+    redis_url: str
     jwt_secret: str = Field(..., min_length=32)
     jwt_algorithm: str = 'HS256'
     jwt_access_token_expire_minutes: int = 60
