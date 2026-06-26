@@ -4,7 +4,7 @@ from typing import Any
 from jose import JWTError, jwt
 from passlib.context import CryptContext
 
-from .config import get_settings
+from app.core.config import get_settings
 
 settings = get_settings()
 pwd_context = CryptContext(schemes=['bcrypt'], deprecated='auto')
@@ -20,11 +20,7 @@ def verify_password(plain_password: str, hashed_password: str) -> bool:
 
 def create_access_token(subject: Any, email: str) -> str:
     expire = datetime.utcnow() + timedelta(minutes=settings.jwt_access_token_expire_minutes)
-    payload = {
-        'sub': str(subject),
-        'email': email,
-        'exp': expire,
-    }
+    payload = {'sub': str(subject), 'email': email, 'exp': expire}
     return jwt.encode(payload, settings.jwt_secret, algorithm=settings.jwt_algorithm)
 
 

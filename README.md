@@ -13,10 +13,33 @@ Monorepo containing:
    pip install -r backend/requirements.txt
    ```
 2. Copy `backend/.env.example` to `backend/.env` and configure env vars.
-3. Run:
+3. Run migrations:
    ```bash
+   cd backend
+   python -m alembic upgrade head
+   ```
+4. Run:
+   ```bash
+   cd backend
    uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
    ```
+
+### Backend API
+- `GET /api/v1/health`
+- `POST /api/v1/auth/register`
+- `POST /api/v1/auth/login`
+- `POST /api/v1/auth/token`
+- `GET /api/v1/auth/me`
+- `GET /api/v1/content`
+- `POST /api/v1/content`
+- `GET /api/v1/content/{content_id}`
+- `PATCH /api/v1/content/{content_id}`
+- `DELETE /api/v1/content/{content_id}`
+- `GET /api/v1/billing/status`
+- `POST /api/v1/billing/checkout`
+- `POST /api/v1/stripe/webhook`
+
+Interactive documentation is available at `/docs` when the backend is running.
 
 ## Run Admin Dashboard
 1. Install dependencies:
@@ -36,10 +59,9 @@ Monorepo containing:
    cd mobile
    flutter pub get
    ```
-2. Copy `mobile/.env.example` to `mobile/.env`.
-3. Run:
+2. Run:
    ```bash
-   flutter run
+   flutter run --dart-define=API_URL=http://localhost:8000/api/v1
    ```
 
 ## Local Services
